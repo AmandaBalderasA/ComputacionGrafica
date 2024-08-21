@@ -84,12 +84,17 @@ int main() {
 		0.56f, 0.01f, 0.0f,   0.4275f, 0.7804f, 0.8118f, // S 15
 		0.9f, 0.2f, 0.0f,   0.4275f, 0.7804f, 0.8118f, // T 16
 		-0.31f, 0.02f, 0.0f,   0.4275f, 0.7804f, 0.8118f, // C 17
-		-0.2f, 0.003f, 0.0f,   0.4275f, 0.7804f, 0.8118f, // H 18
+		-0.2f, 0.03f, 0.0f,   0.4275f, 0.7804f, 0.8118f, // H 18
 	};
 	unsigned int indices[] = {  // note that we start from 0!
-		1,4,3, // BGF - aleta arriba
-		1,5,2, // BDE - parte izq cuerpo
-		1,5,18, // BDH - parte der cuerpo
+		1,3,4, // aleta arriba
+		2,1,5, // parte cuerpo
+		1,5,18, // parte cuerpo
+		1,2,15,5,17,7,6,0, // cuerpo completo
+		8,9,7,10, //hocico
+		5,18,11, //aleta
+		13,12,16,2, // aleta
+		15,2,14, //aleta
 	};
 
 
@@ -138,25 +143,16 @@ int main() {
 
 
 		// Draw our first triangle
-        ourShader.Use();
-        glBindVertexArray(VAO);
+		ourShader.Use();
+		glBindVertexArray(VAO);
 
-
-        glPointSize(10);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDrawArrays(GL_TRIANGLES, 1, 3);
-		glDrawArrays(GL_TRIANGLES, 2, 3);
-		//glDrawArrays(GL_LINE_LOOP,0,4);
-        //glDrawArrays(GL_POINTS,0,4);
-        
-        //glDrawArrays(GL_LINES,0,2);
-        //glDrawArrays(GL_LINE_LOOP,0,4);
-        
-        //glDrawArrays(GL_TRIANGLES,0,3);
-        //glDrawElements(GL_TRIANGLES, 3,GL_UNSIGNED_INT,0);
-		//glDrawArrays(GL_POLYGON, 0, 3);
-        
+		glPointSize(10);
+		glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_INT, (GLvoid*)(0 * sizeof(GLfloat)));
+		glDrawElements(GL_POLYGON, 8, GL_UNSIGNED_INT, (GLvoid*)(9 * sizeof(GLfloat)));
+		glDrawElements(GL_POLYGON, 4, GL_UNSIGNED_INT, (GLvoid*)(17 * sizeof(GLfloat)));
+		glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_INT, (GLvoid*)(21 * sizeof(GLfloat)));
+		glDrawElements(GL_POLYGON, 4, GL_UNSIGNED_INT, (GLvoid*)(24 * sizeof(GLfloat)));
+		glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_INT, (GLvoid*)(28 * sizeof(GLfloat)));
         
         glBindVertexArray(0);
     
