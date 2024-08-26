@@ -1,3 +1,10 @@
+/*
+
+	Práctica 2: Proyecciones y transformaciones
+	Amanda Balderas Arias
+	Domingo 25 de Agosto 2024
+
+*/
 #include<iostream>
 
 //#define GLEW_STATIC
@@ -164,9 +171,6 @@ int main() {
 		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
 	};
 
-
-
-
 	GLuint VBO, VAO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -217,10 +221,11 @@ int main() {
 		ourShader.Use();
 		glm::mat4 model=glm::mat4(1);
 		glm::mat4 view=glm::mat4(1);
+
 		// Cubo 1 - nivel 0 derecha
-	    view = glm::translate(view, glm::vec3(3.0f,-1.0f,-12.0f));
-		model = glm::rotate( model, 0.5f, glm::vec3( 0.0f, 1.0f, 0.0f ) ); // use to compare orthographic and perspective projection
-		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+	    view = glm::translate(view, glm::vec3(3.0f, -2.0f, -10.0f));
+		model = glm::rotate( model, glm::radians(0.5f), glm::vec3( 0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		//view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 8,-800.0f ) ); // use with orthographic projection
 		
 		GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
@@ -231,23 +236,50 @@ int main() {
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		
-
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-
+		
 		// Cubo 2 - nivel 0 en medio
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(3.0f, 1.0f, 2.5f));
-		model = glm::rotate(model, 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-3.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
-
 		// Cubo 3 - nivel 0 izquierda
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-6.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
 		// Cubo 4 - nivel 1 derecha
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-5.0f, 2.5f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 		// Cubo 5 - nivel 1 izquierda
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-1.0f, 2.5f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 		// Cubo 6 - nivel 2
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.0f, 5.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 		glBindVertexArray(0);
 		
 
